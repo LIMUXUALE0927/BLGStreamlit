@@ -1,0 +1,7 @@
+streamlit
+pandas
+mwclient
+matplotlib
+leaguepedia-parser
+datetime
+riotwatcher
