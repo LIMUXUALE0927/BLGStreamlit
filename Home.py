@@ -21,7 +21,7 @@ st.markdown(
     - PlayerStat: 分析联赛中各位置选手的数据并根据自定权重打分、输出雷达图
     - Utils: 一些常用工具(如英雄名称翻译)
     
-    ### 常用网址
+    ### 常用网址 🌐
     - [OP.GG](https://www.op.gg)
     - [Leaguepedia](https://lol.fandom.com/wiki/League_of_Legends_Esports_Wiki)
     - [GOL.GG](https://gol.gg/esports/home/)
