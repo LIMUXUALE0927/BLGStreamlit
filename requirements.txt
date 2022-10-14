@@ -7,3 +7,5 @@ datetime
 riotwatcher
 lol_id_tools
 requests
+plotly
+matplotlib
