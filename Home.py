@@ -18,6 +18,7 @@ st.markdown(
     - DailyRank: 批量查询选手每日韩服Rank数量
     - LeaguePoints: 批量查询选手韩服排位分数
     - SearchEngine: 特定比赛对局查询
+    - Utils: 一些常用工具(如英雄名称翻译)
     
     ### 常用网址
     - [OP.GG](https://www.op.gg)

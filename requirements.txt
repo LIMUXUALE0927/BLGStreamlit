@@ -5,3 +5,5 @@ matplotlib
 leaguepedia-parser
 datetime
 riotwatcher
+lol_id_tools
+requests
