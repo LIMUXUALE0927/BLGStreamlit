@@ -1,5 +1,6 @@
 import datetime
-
+import lol_id_tools as lit
+import requests
 import leaguepedia_parser
 import matplotlib
 import mwclient
@@ -20,6 +21,34 @@ st.info('''
 程序返回的数据包含各联赛各队伍每场比赛的各项详细数据，赛训团队可按需进行筛选以便后续的准备和分析工作。
 
 ''')
+
+
+# 获取英雄列表 -------------------------------------------------------------------------
+latest_version = requests.get(
+    "https://ddragon.leagueoflegends.com/api/versions.json"
+).json()[0]
+
+
+def get_ddragon_url(latest_version, locale: str, object_type: str):
+    dd_url = "https://ddragon.leagueoflegends.com"
+
+    return f"{dd_url}/cdn/{latest_version}/data/{locale}/{object_type}.json"
+
+@st.cache
+def parse_champions(full_patch: str, locale: str = "en_US"):
+    url = get_ddragon_url(full_patch, locale, "champion")
+    data = requests.get(url).json()
+
+    return {
+        int(champion_dict["key"]): champion_dict["name"]
+        for champion_dict in data["data"].values()
+    }
+
+
+map = parse_champions(latest_version)
+champions = list(map.values())
+champ_dict = {champ: lit.get_translation(champ, 'zh_CN', object_type='champion') for champ in champions}
+# --------------------------------------------------------------------------------------
 
 
 # 联赛数据查询 --------------------------------------------------------------------------
@@ -158,7 +187,20 @@ df = df.join(Team1Roles).join(Team2Roles).drop(
 df['DateTime UTC'] = pd.to_datetime(df['DateTime UTC']).dt.date
 df = df.sort_values(by=['DateTime UTC'], ascending=False)
 
-st.dataframe(df)
+column_names = list(df.columns)
+
+def translate(df, column):
+    try:
+        df[column] = df[column].map(champ_dict).fillna(df[column])
+    except:
+        return
+
+if st.button("汉化数据"):
+    for column in column_names:
+        translate(df, column)
+    st.dataframe(df)
+else:
+    st.dataframe(df)
 
 
 @st.cache

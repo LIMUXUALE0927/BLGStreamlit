@@ -18,7 +18,7 @@ def get_ddragon_url(latest_version, locale: str, object_type: str):
 
     return f"{dd_url}/cdn/{latest_version}/data/{locale}/{object_type}.json"
 
-
+@st.cache
 def parse_champions(full_patch: str, locale: str = "en_US"):
     url = get_ddragon_url(full_patch, locale, "champion")
     data = requests.get(url).json()
