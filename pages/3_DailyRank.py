@@ -14,7 +14,7 @@ namelist = str(txt).split(',')
 namelist = [i.strip() for i in namelist]
 namelist = [i.replace('\xa0', ' ') for i in namelist]
 
-my_api = 'RGAPI-72a071f8-44b1-4b69-8cfc-bc34be3c7421'
+my_api = st.secrets["my_api"]
 
 lol_watcher = LolWatcher(my_api)
 region = 'kr'

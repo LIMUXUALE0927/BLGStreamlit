@@ -15,6 +15,7 @@ st.markdown('''
 - 等待 `文件上传成功!` 的字样出现后即可开始使用
 ''')
 
+st.info("请在下方上传csv文件")
 file = st.file_uploader("上传csv文件")
 
 if file is None:

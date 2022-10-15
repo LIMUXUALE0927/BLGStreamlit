@@ -47,7 +47,7 @@ st.dataframe(df)
 
 
 st.markdown("### 英雄名称中英对照表")
-st.table({
+st.dataframe({
     "en": champ_dict.keys(),
     "zh": champ_dict.values()
 })

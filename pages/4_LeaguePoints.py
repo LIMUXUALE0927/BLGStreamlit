@@ -4,7 +4,7 @@ from riotwatcher import LolWatcher
 
 st.markdown("# 韩服排位分数查询 🎉")
 
-apiKey = 'RGAPI-72a071f8-44b1-4b69-8cfc-bc34be3c7421'
+apiKey = st.secrets["my_api"]
 lol_watcher = LolWatcher(apiKey)
 region = 'kr'
 
