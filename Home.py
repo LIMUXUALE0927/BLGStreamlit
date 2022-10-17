@@ -7,7 +7,7 @@ st.set_page_config(
 
 st.write("# 欢迎使用BLG赛训工具箱! 👋")
 
-st.info('BLG赛训工具箱是由BLG内部开发的赛训相关python程序集合。')
+st.info('BLG赛训工具箱是由小耗子开发、BLG内部使用的赛训相关Python程序集合。')
 
 st.markdown(
     """
