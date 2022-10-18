@@ -16,3 +16,16 @@ s = f"https://lol.fandom.com/Special:RunQuery/MatchHistoryGame?MHG%5Bspl%5D=yes&
 if st.button("生成查询链接"):
     st.success(s)
 
+
+st.markdown("---")
+
+st.markdown("### 选手资料页导航")
+st.info("例: 想进入Uzi的选手资料页，在下方输入框输入 Uzi ，再点击生成查询链接即可。")
+
+player_name = st.text_input("请输入选手比赛ID")
+s1 = f"https://lol.fandom.com/wiki/Special:Search?query={player_name}&scope=internal&navigationSearch=true"
+s2 = f"https://www.carrystats.com/lol/search?k={player_name}"
+
+if st.button("生成查询链接", key=2):
+    st.success("Leaguepedia: " + s1)
+    st.success("玩加电竞: " + s2)
