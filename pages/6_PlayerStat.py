@@ -26,7 +26,7 @@ if file is not None:
     st.success("文件上传成功!")
     st.dataframe(df)
 
-max_GP = df['GP'].max()
+max_GP = int(df['GP'].max())
 
 st.info("请选择筛选条件")
 col1, col2 = st.columns(2)
