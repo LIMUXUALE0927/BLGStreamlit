@@ -26,8 +26,14 @@ if file is not None:
     st.success("文件上传成功!")
     st.dataframe(df)
 
-st.info("请选择选手位置")
-option = st.selectbox("请下拉选项", ('Top', 'Jungle', 'Middle', 'ADC', 'Support'))
+max_GP = df['GP'].max()
+
+st.info("请选择筛选条件")
+col1, col2 = st.columns(2)
+with col1:
+    option = st.selectbox("请选择选手位置", ('Top', 'Jungle', 'Middle', 'ADC', 'Support'))
+with col2:
+    option2 = st.slider("请选择选手最少的出场次数，这将过滤掉出场次数较少的选手", 0, max_GP, 0)
 
 df = df[df['Pos'] == option]
 df = df[['Player', 'Team', 'Pos', 'GP', 'KDA', 'KP',
@@ -77,7 +83,9 @@ df["总分"] = (df["生存"] * c1 + df["发育/经济"] * c2 + df["输出/Carry"
 
 df_scaled = df[['Player', 'Team', 'Pos', 'GP', '生存', '发育/经济', '输出/Carry', '支援/视野', '总分']]
 df_scaled = df_scaled.sort_values(by=['总分'], ascending=False)
-df_scaled = df_scaled[df_scaled['GP'] >= 10]
+
+
+df_scaled = df_scaled[df_scaled['GP'] >= option2]
 df_scaled.reset_index(drop=True, inplace=True)
 
 
