@@ -24,7 +24,7 @@ for name in namelist2:
         continue
 
 stats = stats[stats['queueType']=='RANKED_SOLO_5x5']
-st.table(stats[['summonerName', 'tier', 'leaguePoints']])
+st.dataframe(stats[['summonerName', 'tier', 'leaguePoints']])
 
 @st.cache
 def convert_df(df):
