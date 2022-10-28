@@ -25,7 +25,7 @@ for name in namelist:
 
 st.table(stats[['summonerName', 'tier', 'rank', 'leaguePoints']])
 
-
+@st.cache
 def convert_df(df):
     return df.to_csv().encode('utf-8')
 
@@ -36,5 +36,6 @@ csv = convert_df(data)
 st.download_button(
     label="下载数据",
     data = csv,
-    file_name='韩服分数.csv'
+    file_name='韩服分数.csv',
+    mime = 'text/csv',
 )
