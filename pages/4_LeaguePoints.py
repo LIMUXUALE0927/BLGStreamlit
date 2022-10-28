@@ -23,7 +23,8 @@ for name in namelist:
     except:
         continue
 
-st.table(stats[['summonerName', 'tier', 'rank', 'leaguePoints']])
+stats = stats[stats['queueType']=='RANKED_SOLO_5x5']
+st.table(stats[['summonerName', 'tier', 'leaguePoints']])
 
 @st.cache
 def convert_df(df):
