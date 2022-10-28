@@ -26,7 +26,6 @@ for name in namelist:
 st.table(stats[['summonerName', 'tier', 'rank', 'leaguePoints']])
 
 
-@st.cache
 def convert_df(df):
     return df.to_csv().encode('utf-8')
 
