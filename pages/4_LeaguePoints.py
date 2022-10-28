@@ -30,7 +30,7 @@ def convert_df(df):
     return df.to_csv().encode('utf-8')
 
 
-data = stats[['summonerName', 'tier', 'rank', 'leaguePoints']]
+data = stats[['summonerName', 'tier', 'leaguePoints']]
 csv = convert_df(data)
 
 st.download_button(
