@@ -37,16 +37,3 @@ for i in namelist:
         continue
 
 st.dataframe(rank_df)
-
-@st.cache
-def convert_df(df):
-    return df.to_csv().encode('utf-8')
-
-csv = convert_df(rank_df)
-
-st.download_button(
-    label="下载数据",
-    data = csv,
-    file_name='排位数量.csv',
-    mime = 'text/csv',
-)

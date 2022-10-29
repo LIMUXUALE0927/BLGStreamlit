@@ -25,18 +25,3 @@ for name in namelist2:
 
 stats = stats[stats['queueType']=='RANKED_SOLO_5x5']
 st.dataframe(stats[['summonerName', 'tier', 'leaguePoints']])
-
-@st.cache
-def convert_df(df):
-    return df.to_csv().encode('utf-8')
-
-
-data = stats[['summonerName', 'tier', 'leaguePoints']]
-csv = convert_df(data)
-
-st.download_button(
-    label="下载数据",
-    data = csv,
-    file_name='韩服分数.csv',
-    mime = 'text/csv',
-)
