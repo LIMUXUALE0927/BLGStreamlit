@@ -19,7 +19,7 @@ for name in namelist2:
     try:
         summoner_id = lol_watcher.summoner.by_name(region, name)['id']
         data = lol_watcher.league.by_summoner(region, summoner_id)
-        stats = stats.append(data, ignore_index=True)
+        stats = pd.concat([stats, data], ignore_index=True)
     except:
         continue
 
