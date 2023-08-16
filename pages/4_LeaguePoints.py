@@ -24,9 +24,9 @@ def get_challengers_names():
     return df_challengers['summonerName'].to_list()
 
 
-summoner_list = get_challengers_names()
+# summoner_list = get_challengers_names()
 txt2 = st.text_area("请输入要查询的韩服ID列表，多个ID间请用英文逗号分隔。如果结果出错请刷新页面。",
-                    ", ".join(summoner_list))
+                    "Dawn u, Kakhi shoot, Let me sup, Radiohead, Agurin모모, hold me3, Chu성훈, NO BUYOUT, DRX Juhana")
 
 namelist2 = txt2.split(',')
 namelist2 = [i.strip() for i in namelist2]
