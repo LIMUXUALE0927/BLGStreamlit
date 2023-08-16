@@ -7,7 +7,7 @@ from riotwatcher import LolWatcher
 st.markdown("# 日常韩服排位数量查询 🎉")
 
 today = int(datetime.fromisoformat(datetime.today().strftime('%Y-%m-%d 12:00')).timestamp())
-yesterday = int(datetime.fromisoformat((datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d 12:00')).timestamp())
+yesterday = int(datetime.fromisoformat((datetime.today() - timedelta(days=30)).strftime('%Y-%m-%d 12:00')).timestamp())
 
 txt = st.text_area("请输入要查询的韩服ID列表，多个ID间请用英文逗号分隔。如果结果出错请刷新页面。", "Hide on bush, T1 Gumayusi, GEN G Ruler")
 namelist = str(txt).split(',')
