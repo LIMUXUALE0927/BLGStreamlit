@@ -10,7 +10,7 @@ today = int(datetime.fromisoformat(datetime.today().strftime('%Y-%m-%d 12:00')).
 start = int(datetime.fromisoformat((datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d 12:00')).timestamp())
 
 txt = st.text_area("请输入要查询的韩服ID列表，多个ID间请用英文逗号分隔。如果结果出错请刷新页面。",
-                   "Hide on bush, T1 Gumayusi")
+                   "Dawn u, Kakhi shoot, Let me sup, Radiohead, Agurin모모, hold me3, Chu성훈, NO BUYOUT, DRX Juhana")
 namelist = str(txt).split(',')
 namelist = [i.strip() for i in namelist]
 namelist = [i.replace('\xa0', ' ') for i in namelist]
