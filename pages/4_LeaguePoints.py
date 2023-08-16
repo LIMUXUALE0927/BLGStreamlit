@@ -8,8 +8,25 @@ apiKey = st.secrets["my_api"]
 lol_watcher = LolWatcher(apiKey)
 region = 'kr'
 
+
+def get_challengers_names():
+    my_api = 'RGAPI-72a071f8-44b1-4b69-8cfc-bc34be3c7421'
+    lol_watcher = LolWatcher(my_api)
+    challengers = lol_watcher.league.challenger_by_queue('kr', 'RANKED_SOLO_5x5')
+    length = len(challengers['entries'])
+    summonerId = [challengers['entries'][i]['summonerId'] for i in range(length)]
+    summonerName = [challengers['entries'][i]['summonerName'] for i in range(length)]
+    leaguePoints = [challengers['entries'][i]['leaguePoints'] for i in range(length)]
+    df_challengers = pd.DataFrame(list(zip(summonerId, summonerName, leaguePoints)),
+                                  columns=['summonerId', 'summonerName', 'leaguePoints']).sort_values(by='leaguePoints',
+                                                                                                      ascending=False).reset_index(
+        drop=True)
+    return df_challengers['summonerName'].to_list()
+
+
+summoner_list = get_challengers_names()
 txt2 = st.text_area("请输入要查询的韩服ID列表，多个ID间请用英文逗号分隔。如果结果出错请刷新页面。",
-                    "Hide on bush, T1 Gumayusi, GEN G Ruler")
+                    ", ".join(summoner_list))
 
 namelist2 = txt2.split(',')
 namelist2 = [i.strip() for i in namelist2]
