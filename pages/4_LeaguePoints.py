@@ -10,7 +10,7 @@ region = 'kr'
 
 
 def get_challengers_names():
-    my_api = 'RGAPI-72a071f8-44b1-4b69-8cfc-bc34be3c7421'
+    my_api = st.secrets["my_api"]
     lol_watcher = LolWatcher(my_api)
     challengers = lol_watcher.league.challenger_by_queue('kr', 'RANKED_SOLO_5x5')
     length = len(challengers['entries'])
