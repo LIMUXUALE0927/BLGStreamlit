@@ -37,7 +37,7 @@ def get_ddragon_url(latest_version, locale: str, object_type: str):
     return f"{dd_url}/cdn/{latest_version}/data/{locale}/{object_type}.json"
 
 
-@st.cache
+@st.cache_data
 def parse_champions(full_patch: str, locale: str = "en_US"):
     url = get_ddragon_url(full_patch, locale, "champion")
     data = requests.get(url).json()
@@ -85,7 +85,7 @@ worlds_name = worlds_name[::-1]
 tournaments = lpl_name + lck_name + ldl_name + worlds_name
 
 # 筛选条件
-options = st.multiselect("请选择联赛和赛季", tournaments, tournaments[0])
+options = st.multiselect("请选择联赛和赛季", tournaments, tournaments[2])
 
 where = ""
 for i in options:
@@ -100,7 +100,8 @@ response = site.api(
     "cargoquery",
     limit="max",
     tables="ScoreboardGames=SG",
-    fields="SG.OverviewPage, SG.Tournament, SG.DateTime_UTC, SG.Patch ,SG.Team1, SG.Team2, SG.WinTeam, SG.Team1Bans, SG.Team2Bans, SG.Team1Picks, SG.Team2Picks, SG.GameId",
+    fields="SG.OverviewPage, SG.Tournament, SG.DateTime_UTC, SG.Patch ,SG.Team1, SG.Team2, SG.WinTeam, SG.Team1Bans, "
+           "SG.Team2Bans, SG.Team1Picks, SG.Team2Picks, SG.GameId",
     where=conditions_SG,
 )
 
@@ -247,7 +248,7 @@ else:
     st.dataframe(df)
 
 
-@st.cache
+@st.cache_data
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv().encode("utf-8")
@@ -316,7 +317,7 @@ for i in teams:
             "Total": [len(team_data_i)],
         }
     )
-    team_dashboard_data = team_dashboard_data.append(metrics_i, ignore_index=True)
+    team_dashboard_data = pd.concat([team_dashboard_data, metrics_i], ignore_index=True)
 
 team_dashboard_data = team_dashboard_data.set_index("Team")
 team_dashboard_data["WinRate_rank"] = (
@@ -339,7 +340,7 @@ team_data = team_data.sort_values(by=["DateTime UTC"], ascending=False)
 st.dataframe(team_data)
 
 
-@st.cache
+@st.cache_data
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv().encode("utf-8")
@@ -377,7 +378,7 @@ team_red_ban = pd.DataFrame(
 team_blue_ban.columns = ["Champion", "Count"]
 team_red_ban.columns = ["Champion", "Count"]
 
-team_ban = team_blue_ban.append(team_red_ban).reset_index().drop(columns=["index"])
+team_ban = pd.concat([team_blue_ban, team_red_ban]).reset_index(drop=True)
 team_ban = (
     pd.DataFrame(team_ban.groupby(["Champion"])["Count"].sum())
     .sort_values(by="Count", ascending=False)
@@ -432,7 +433,7 @@ team_red_pick = pd.DataFrame(
 team_blue_pick.columns = ["Champion", "Count"]
 team_red_pick.columns = ["Champion", "Count"]
 
-team_pick = team_blue_pick.append(team_red_pick).reset_index().drop(columns=["index"])
+team_pick = pd.concat([team_blue_pick, team_red_pick]).reset_index(drop=True)
 team_pick = (
     pd.DataFrame(team_pick.groupby(["Champion"])["Count"].sum())
     .sort_values(by="Count", ascending=False)
@@ -459,7 +460,7 @@ team_blue_top = pd.DataFrame(team_blue["Team1TOP"].value_counts()).reset_index()
 team_blue_top.columns = ["Champion", "Count"]
 team_red_top = pd.DataFrame(team_red["Team2TOP"].value_counts()).reset_index()
 team_red_top.columns = ["Champion", "Count"]
-team_top = team_blue_top.append(team_red_top).reset_index().drop(columns=["index"])
+team_top = pd.concat([team_blue_top, team_red_top]).reset_index(drop=True)
 team_top = (
     pd.DataFrame(team_top.groupby(["Champion"])["Count"].sum())
     .sort_values(by="Count", ascending=False)
@@ -470,7 +471,7 @@ team_blue_jug = pd.DataFrame(team_blue["Team1JUG"].value_counts()).reset_index()
 team_blue_jug.columns = ["Champion", "Count"]
 team_red_jug = pd.DataFrame(team_red["Team2JUG"].value_counts()).reset_index()
 team_red_jug.columns = ["Champion", "Count"]
-team_jug = team_blue_jug.append(team_red_jug).reset_index().drop(columns=["index"])
+team_jug = pd.concat([team_blue_jug, team_red_jug]).reset_index(drop=True)
 team_jug = (
     pd.DataFrame(team_jug.groupby(["Champion"])["Count"].sum())
     .sort_values(by="Count", ascending=False)
@@ -481,7 +482,7 @@ team_blue_mid = pd.DataFrame(team_blue["Team1MID"].value_counts()).reset_index()
 team_blue_mid.columns = ["Champion", "Count"]
 team_red_mid = pd.DataFrame(team_red["Team2MID"].value_counts()).reset_index()
 team_red_mid.columns = ["Champion", "Count"]
-team_mid = team_blue_mid.append(team_red_mid).reset_index().drop(columns=["index"])
+team_mid = pd.concat([team_blue_mid, team_red_mid]).reset_index(drop=True)
 team_mid = (
     pd.DataFrame(team_mid.groupby(["Champion"])["Count"].sum())
     .sort_values(by="Count", ascending=False)
@@ -492,7 +493,7 @@ team_blue_bot = pd.DataFrame(team_blue["Team1BOT"].value_counts()).reset_index()
 team_blue_bot.columns = ["Champion", "Count"]
 team_red_bot = pd.DataFrame(team_red["Team2BOT"].value_counts()).reset_index()
 team_red_bot.columns = ["Champion", "Count"]
-team_bot = team_blue_bot.append(team_red_bot).reset_index().drop(columns=["index"])
+team_bot = pd.concat([team_blue_bot, team_red_bot]).reset_index(drop=True)
 team_bot = (
     pd.DataFrame(team_bot.groupby(["Champion"])["Count"].sum())
     .sort_values(by="Count", ascending=False)
@@ -503,7 +504,7 @@ team_blue_sup = pd.DataFrame(team_blue["Team1SUP"].value_counts()).reset_index()
 team_blue_sup.columns = ["Champion", "Count"]
 team_red_sup = pd.DataFrame(team_red["Team2SUP"].value_counts()).reset_index()
 team_red_sup.columns = ["Champion", "Count"]
-team_sup = team_blue_sup.append(team_red_sup).reset_index().drop(columns=["index"])
+team_sup = pd.concat([team_blue_sup, team_red_sup]).reset_index(drop=True)
 team_sup = (
     pd.DataFrame(team_sup.groupby(["Champion"])["Count"].sum())
     .sort_values(by="Count", ascending=False)
