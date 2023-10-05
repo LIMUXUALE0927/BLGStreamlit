@@ -17,6 +17,7 @@ st.markdown('''
 
 st.info("请在下方上传csv文件")
 file = st.file_uploader("上传csv文件")
+file = "LPL 2023 Summer - Player Stats - OraclesElixir.csv"
 
 if file is None:
     st.warning("请正确上传文件!")
