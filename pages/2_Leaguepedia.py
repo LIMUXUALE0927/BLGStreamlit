@@ -261,6 +261,7 @@ st.download_button(
     data=csv,
     file_name="large_df.csv",
     mime="text/csv",
+    key="download_button1"
 )
 
 
@@ -353,6 +354,7 @@ st.download_button(
     data=csv_2,
     file_name="large_df.csv",
     mime="text/csv",
+    key="download_button2"
 )
 
 # 队伍BP数据
