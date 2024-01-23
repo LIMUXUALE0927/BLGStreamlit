@@ -85,7 +85,8 @@ worlds_name = worlds_name[::-1]
 tournaments = lpl_name + lck_name + ldl_name + worlds_name
 
 # 筛选条件
-options = st.multiselect("请选择联赛和赛季", tournaments, tournaments[2])
+# options = st.multiselect("请选择联赛和赛季", tournaments, tournaments[2])
+options = ["LCK/2023 Season/Summer Season"]
 
 where = ""
 for i in options:
