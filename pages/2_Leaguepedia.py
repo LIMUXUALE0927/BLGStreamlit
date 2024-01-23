@@ -61,7 +61,7 @@ champ_dict = {
 st.header("联赛数据查询")
 
 # this_year = datetime.datetime.now().year
-this_year = 2021
+this_year = 2023
 lpl = leaguepedia_parser.get_tournaments(
     region="China", tournament_level="Primary", year=this_year
 )
@@ -85,8 +85,8 @@ worlds_name = worlds_name[::-1]
 tournaments = lpl_name + lck_name + ldl_name + worlds_name
 
 # 筛选条件
-# options = st.multiselect("请选择联赛和赛季", tournaments, tournaments[2])
-options = ["LCK/2023 Season/Summer Season"]
+options = st.multiselect("请选择联赛和赛季", tournaments, tournaments[2])
+# options = ["LCK/2023 Season/Summer Season"]
 
 where = ""
 for i in options:
